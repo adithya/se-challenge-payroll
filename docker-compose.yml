@@ -1,0 +1,19 @@
+version: '3.6'
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=waveuser
+      - POSTGRES_PASSWORD=pg@admin
+      - POSTGRES_DB=payroll-challenge-db
+
+  app:
+    build: .
+    environment:
+      - DB_HOST=db
+      - EXTERNAL_PORT=7600
+    depends_on:
+      - db
+    ports:
+      - "7600:3000"
